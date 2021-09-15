@@ -9,7 +9,7 @@ import Foundation
 
 struct Constants {
     
-    static var apiKey = "GAsGsHhJ2FuEe5TsN2MPWB4QAsMurJ8Z"
-    static var apiUrl = "https://api.tomorrow.io/v4/timelines?location=-73.98529171943665,40.75872069597532&fields=temperature&timesteps=1h&units=metric&apikey=GAsGsHhJ2FuEe5TsN2MPWB4QAsMurJ8Z"
+    static var apiKey = "7ef1538a1ddb3108adab0227bde60492"
+    static var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?"
     //curl --request GET --url \
 }

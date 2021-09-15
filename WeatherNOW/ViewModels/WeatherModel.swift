@@ -6,40 +6,75 @@
 //
 
 import Foundation
+import CoreLocation
 
-class WeatherModel: NSObject, ObservableObject{
+class WeatherModel: NSObject, CLLocationManagerDelegate, ObservableObject{
     
-    @Published var weather = Weather()
+    var locationManager = CLLocationManager()
+    
+    @Published var weather: WeatherNOW?
+    @Published var placemark: CLPlacemark?
+    
+    @Published var authorizationState = CLAuthorizationStatus.notDetermined
     
     override init(){
         super.init()
-        getWeather()
+        
+        locationManager.delegate = self
+        requestGeolocation()
+        //print(weather[0].daily[0].weather.description)
     }
-    //temperature, temperatureApparent, humidity, windSpeed, precipitationIntesity, precipitationProbability, precipitationType, uvIndex, weatherCode
-    //'https://api.tomorrow.io/v4/timelines?location=-73.98529171943665,40.75872069597532&fields=temperature&timesteps=1h&units=metric&apikey=GAsGsHhJ2FuEe5TsN2MPWB4QAsMurJ8Z'
-    func getWeather(){
-
-        let urlPath = "https://api.tomorrow.io/v4/timelines?location=-73.98529171943665,40.75872069597532&fields=temperature,temperatureApparent,,humidity,windSpeed,precipitationIntensity,precipitationProbability,precipitationType,uvIndex,weatherCode&timesteps=1h&units=metric&apikey=GAsGsHhJ2FuEe5TsN2MPWB4QAsMurJ8Z"
-        if let url = URL(string: urlPath){
-
-            var request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 10.0)
-            request.httpMethod = "GET"
+    
+    func requestGeolocation(){
+        locationManager.requestWhenInUseAuthorization()
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        authorizationState = locationManager.authorizationStatus
+        
+        if locationManager.authorizationStatus == CLAuthorizationStatus.authorizedAlways || locationManager.authorizationStatus == CLAuthorizationStatus.authorizedWhenInUse{
+            //Have permission and start locating
+            locationManager.startUpdatingLocation()
+        }
+        else if locationManager.authorizationStatus == .denied{
+            //Don't have permission
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation = locations.first
+        
+        if userLocation != nil{
+            locationManager.stopUpdatingLocation()
             
-            let session = URLSession.shared
+            let geoCoder = CLGeocoder()
             
-            let dataTast = session.dataTask(with: request) { data, response, error in
-
-                guard error == nil else{
-                    return
+            geoCoder.reverseGeocodeLocation(userLocation!) { placemarks, error in
+                
+                if error == nil && placemarks != nil{
+                    
+                    self.placemark = placemarks?.first
                 }
                 
-                let decoder = JSONDecoder()
+            }
+            
+            getWeather(userLocation!)
+        }
+    }
+    
+    func getWeather(_ location: CLLocation) {
+        if let url = URL(string: Constants.apiUrl + "lat=\(location.coordinate.latitude)&lon=\(location.coordinate.longitude)&exclude=minutely,alerts&units=imperial&appid=7ef1538a1ddb3108adab0227bde60492"){
+            
+            URLSession.shared.dataTask(with: url) { data, response, error in
 
-                do{
-                    let result = try decoder.decode(Weather.self, from: data!)
-                    self.weather = result
-                    print(data!)
-
+                do {
+                    if error == nil && data != nil{
+                        let decoder = JSONDecoder()
+                        let result = try decoder.decode(WeatherNOW.self, from: data!)
+                        DispatchQueue.main.async {
+                            self.weather = result
+                        }
+                    }
                 }
                 catch{
                     print(error)
