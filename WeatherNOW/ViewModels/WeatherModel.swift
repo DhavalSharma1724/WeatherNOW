@@ -9,17 +9,19 @@ import Foundation
 import CoreLocation
 
 class WeatherModel: NSObject, CLLocationManagerDelegate, ObservableObject{
-    
     var locationManager = CLLocationManager()
     
-    @Published var weather: WeatherNOW?
+    @Published var weatherImp: WeatherNOW?
+    @Published var weatherMet: WeatherNOW?
     @Published var placemark: CLPlacemark?
+    @Published var imperial = true
+    var hourlyTime = [String]()
+    var dailyTime = [String]()
     
     @Published var authorizationState = CLAuthorizationStatus.notDetermined
     
     override init(){
         super.init()
-        
         locationManager.delegate = self
         requestGeolocation()
         //print(weather[0].daily[0].weather.description)
@@ -63,16 +65,48 @@ class WeatherModel: NSObject, CLLocationManagerDelegate, ObservableObject{
     }
     
     func getWeather(_ location: CLLocation) {
-        if let url = URL(string: Constants.apiUrl + "lat=\(location.coordinate.latitude)&lon=\(location.coordinate.longitude)&exclude=minutely,alerts&units=imperial&appid=7ef1538a1ddb3108adab0227bde60492"){
+        if let urlImp = URL(string: Constants.apiUrl + "lat=\(location.coordinate.latitude)&lon=\(location.coordinate.longitude)&exclude=minutely,alerts&units=imperial&appid=7ef1538a1ddb3108adab0227bde60492"){
             
-            URLSession.shared.dataTask(with: url) { data, response, error in
+            URLSession.shared.dataTask(with: urlImp) { data, response, error in
 
                 do {
                     if error == nil && data != nil{
                         let decoder = JSONDecoder()
                         let result = try decoder.decode(WeatherNOW.self, from: data!)
                         DispatchQueue.main.async {
-                            self.weather = result
+                            self.weatherImp = result
+                            if self.weatherImp != nil{
+                                for hour in self.weatherImp!.hourly{
+                                    
+                                    var time = self.stringFromDateHour(NSDate(timeIntervalSince1970: TimeInterval(hour.dt)) as Date)
+                                    
+                                    let intTime = Int(time)!
+                                    
+                                    if intTime == 0{
+                                        time = "12 AM"
+                                    }
+                                    else if intTime < 10{
+                                        time = "\(intTime) AM"
+                                    }
+                                    else if intTime < 12{
+                                        time += " AM"
+                                    }
+                                    else if intTime == 12{
+                                        time += " PM"
+                                    }
+                                    else{
+                                        time = "\((intTime - 12)) PM"
+                                    }
+                                    
+                                    self.hourlyTime.append(time)
+                                }
+                                
+                                for day in self.weatherImp!.daily{
+                                    let time = self.stringFromDateDay(NSDate(timeIntervalSince1970: TimeInterval(day.dt)) as Date)
+                                    self.dailyTime.append(time)
+                                }
+                            }
+                            
                         }
                     }
                 }
@@ -83,7 +117,42 @@ class WeatherModel: NSObject, CLLocationManagerDelegate, ObservableObject{
                 }
             }.resume()
         }
+        
+        if let urlMet = URL(string: Constants.apiUrl + "lat=\(location.coordinate.latitude)&lon=\(location.coordinate.longitude)&exclude=minutely,alerts&units=metric&appid=7ef1538a1ddb3108adab0227bde60492"){
+            
+            URLSession.shared.dataTask(with: urlMet) { data, response, error in
+                
+                do {
+                    if error == nil && data != nil{
+                        let decoder = JSONDecoder()
+                        let result = try decoder.decode(WeatherNOW.self, from: data!)
+                        DispatchQueue.main.async {
+                            self.weatherMet = result
+                        }
+                    }
+                }
+                catch{
+                    print(error)
+
+                    return
+                }
+                
+            }.resume()
+            
+            
+        }
     }
     
+    func stringFromDateHour(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH"
+        //formatter.dateFormat = "HH:mm Mdd MMM" //yyyy
+        return formatter.string(from: date)
+    }
     
+    func stringFromDateDay(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "Mdd"
+        return formatter.string(from: date)
+    }
 }

@@ -15,43 +15,69 @@ struct ContentView: View {
     var body: some View {
         
         GeometryReader { geo in
-            VStack {
-                TabView(selection: $selectedTab){
-                    ForEach(0..<4, id: \.self){ index in
-                        ZStack {
-                            Rectangle()
-                                .foregroundColor(selectedTab == 0 ? .green : .red)
-                                .padding()
-                            if weather.weather != nil{
-                                Text(String(weather.placemark?.locality ?? ""))
+            ZStack{
+                //Background
+                LinearGradient(
+                    gradient: Gradient(colors: [Color(red: 118.0/255.0, green: 239.0/255.0, blue: 1), Color(red: 0, green: 178.0/255.0, blue: 1)]),
+                    startPoint: .topTrailing,
+                    endPoint: .bottomLeading)
+                    .ignoresSafeArea()
+                
+                //Top part and Bottom Tab
+                
+                VStack {
+                    //MARK: Top Part
+                    TabView(selection: $selectedTab){
+                        ForEach(0..<2, id: \.self){ index in
+                            if index == 0{
+                                CurrentView()
                             }
                             else{
-                                ProgressView()
+                                Text("Hello")
                             }
                         }
                     }
-                }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                
-                //MARK: View Bar at bottom
-                
-                HStack{
-                    Spacer()
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                     
-                    Button(action: {
-                        selectedTab = 0
-                    }, label: {
-                        Image(systemName: "star.fill")
-                            .foregroundColor(selectedTab == 0 ? .blue : .black)
-                    })
-                    Spacer()
-                    Button(action: {
-                        selectedTab = 1
-                    }, label: {
-                        Image(systemName: "pencil")
-                            .foregroundColor(selectedTab == 1 ? .blue : .black)
-                    })
-                    Spacer()
+                    //MARK: View Bar at bottom
+                    
+                    Rectangle()
+                        .cornerRadius(20)
+                        .frame(height: 1)
+                        .foregroundColor(.white)
+                        .padding(.horizontal)
+                    
+                    HStack{
+                        Spacer()
+                        
+                        Button {
+                            weather.imperial.toggle()
+                        } label: {
+                            Text(weather.imperial ? "˚F" : "˚C")
+                                .foregroundColor(.white)
+                                .font(Font.custom("Avenir Heavy", size: 18))
+                                .bold()
+                        }
+
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            selectedTab = 0
+                        }, label: {
+                            Image(systemName: "star.fill")
+                                .foregroundColor(selectedTab == 0 ? .blue : .white)
+                        })
+                        Spacer()
+                        Button(action: {
+                            selectedTab = 1
+                        }, label: {
+                            Image(systemName: "pencil")
+                                .foregroundColor(selectedTab == 1 ? .blue : .white)
+                        })
+                        Spacer()
+                    }
+                    .padding(.top)
                 }
             }
         }
