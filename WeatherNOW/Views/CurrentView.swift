@@ -97,12 +97,11 @@ struct CurrentView: View {
                 
                 ZStack{
                     ScrollView(.horizontal, showsIndicators: false){
+                        
                         HStack{
-                            Card(topic: "Humidity")
-                            Card(topic: "UV Index")
-                            Card(topic: "Dew Point")
-                            Card(topic: "Clouds")
-                            Card(topic: "Wind Speed")
+                            ForEach(weather.topics, id: \.self){topic in
+                                Card(topic: topic, weather: weather)                                
+                            }
                         }
                         .padding(.top)
                         .padding(.bottom, 6)

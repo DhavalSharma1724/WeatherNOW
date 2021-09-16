@@ -19,6 +19,7 @@ class WeatherModel: NSObject, CLLocationManagerDelegate, ObservableObject{
     var dailyTime = [String]()
     
     @Published var authorizationState = CLAuthorizationStatus.notDetermined
+    var topics = ["Humidity", "UV Index", "Clouds", "Wind Speed", "Dew Point"]
     
     override init(){
         super.init()
