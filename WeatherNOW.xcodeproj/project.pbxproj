@@ -17,6 +17,8 @@
 		D18082D026F2972F00453947 /* CurrentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18082CF26F2972F00453947 /* CurrentView.swift */; };
 		D18082D226F30AF700453947 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18082D126F30AF700453947 /* CardView.swift */; };
 		D18082D426F3ACEA00453947 /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18082D326F3ACEA00453947 /* CardDetailView.swift */; };
+		D18082D626F51C6C00453947 /* DailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18082D526F51C6C00453947 /* DailyView.swift */; };
+		D18082D826F51F3D00453947 /* DayRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18082D726F51F3D00453947 /* DayRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		D18082CF26F2972F00453947 /* CurrentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentView.swift; sourceTree = "<group>"; };
 		D18082D126F30AF700453947 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		D18082D326F3ACEA00453947 /* CardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView.swift; sourceTree = "<group>"; };
+		D18082D526F51C6C00453947 /* DailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyView.swift; sourceTree = "<group>"; };
+		D18082D726F51F3D00453947 /* DayRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +92,8 @@
 			isa = PBXGroup;
 			children = (
 				D18082B826EBEC7E00453947 /* ContentView.swift */,
+				D18082D526F51C6C00453947 /* DailyView.swift */,
+				D18082D726F51F3D00453947 /* DayRowView.swift */,
 				D18082CF26F2972F00453947 /* CurrentView.swift */,
 				D18082D126F30AF700453947 /* CardView.swift */,
 				D18082D326F3ACEA00453947 /* CardDetailView.swift */,
@@ -188,6 +194,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D18082D826F51F3D00453947 /* DayRowView.swift in Sources */,
+				D18082D626F51C6C00453947 /* DailyView.swift in Sources */,
 				D18082D226F30AF700453947 /* CardView.swift in Sources */,
 				D18082CC26F0047300453947 /* WeatherNOW.swift in Sources */,
 				D18082B926EBEC7E00453947 /* ContentView.swift in Sources */,

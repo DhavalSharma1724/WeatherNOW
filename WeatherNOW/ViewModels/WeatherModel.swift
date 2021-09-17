@@ -16,7 +16,6 @@ class WeatherModel: NSObject, CLLocationManagerDelegate, ObservableObject{
     @Published var placemark: CLPlacemark?
     @Published var imperial = true
     var hourlyTime = [String]()
-    var dailyTime = [String]()
     
     @Published var authorizationState = CLAuthorizationStatus.notDetermined
     var topics = ["Humidity", "UV Index", "Clouds", "Wind Speed", "Dew Point"]
@@ -101,11 +100,6 @@ class WeatherModel: NSObject, CLLocationManagerDelegate, ObservableObject{
                                     
                                     self.hourlyTime.append(time)
                                 }
-                                
-                                for day in self.weatherImp!.daily{
-                                    let time = self.stringFromDateDay(NSDate(timeIntervalSince1970: TimeInterval(day.dt)) as Date)
-                                    self.dailyTime.append(time)
-                                }
                             }
                             
                         }
@@ -151,9 +145,15 @@ class WeatherModel: NSObject, CLLocationManagerDelegate, ObservableObject{
         return formatter.string(from: date)
     }
     
-    func stringFromDateDay(_ date: Date) -> String {
+    static func stringFromDateDay(_ date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "Mdd"
+        formatter.dateFormat = "EEEE"
+        return formatter.string(from: date)
+    }
+    
+    static func stringFromDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "M/dd"
         return formatter.string(from: date)
     }
 }

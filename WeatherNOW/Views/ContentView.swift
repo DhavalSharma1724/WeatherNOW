@@ -33,7 +33,7 @@ struct ContentView: View {
                                 CurrentView()
                             }
                             else{
-                                Text("Hello")
+                                DailyView()
                             }
                         }
                     }
