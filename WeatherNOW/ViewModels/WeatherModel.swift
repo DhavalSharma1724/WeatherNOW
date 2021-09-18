@@ -43,6 +43,16 @@ class WeatherModel: NSObject, CLLocationManagerDelegate, ObservableObject{
         }
     }
     
+    func updateLocation(){
+        if authorizationState == .authorizedAlways || authorizationState == .authorizedWhenInUse{
+            
+            requestGeolocation()
+        }
+        else{
+            requestGeolocation()
+        }
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation = locations.first
         
@@ -155,5 +165,33 @@ class WeatherModel: NSObject, CLLocationManagerDelegate, ObservableObject{
         let formatter = DateFormatter()
         formatter.dateFormat = "M/dd"
         return formatter.string(from: date)
+    }
+    
+    static func stringFromDateTime(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "mm"
+        let minutes = formatter.string(from: date)
+        formatter.dateFormat = "HH"
+        let hour = formatter.string(from: date)
+        
+        var time: String = ""
+        let intTime = Int(hour)!
+        
+        if intTime == 0{
+            time = "12:\(minutes) AM"
+        }
+        else if intTime < 10{
+            time = "\(intTime):\(minutes) AM"
+        }
+        else if intTime < 12{
+            time = "\(intTime):\(minutes) AM"
+        }
+        else if intTime == 12{
+            time = "12:\(minutes) PM"
+        }
+        else{
+            time = "\((intTime - 12)):\(minutes) PM"
+        }
+        return time
     }
 }

@@ -21,8 +21,7 @@ struct CurrentView: View {
                     VStack (alignment: .leading, spacing: -20){
                         //Place
                         Button {
-                            print("HEO")
-                            weather.requestGeolocation()
+                            weather.updateLocation()
                         } label: {
                             Text(weather.placemark?.locality ?? "")
                                 .font(Font.custom("Avenir Heavy", size: 48))
@@ -36,7 +35,7 @@ struct CurrentView: View {
                         //Descriptor
                         Text("\(weather.weatherImp!.current.weather[0].main) – Feels like: \(Int(weather.imperial ? weather.weatherImp!.current.feels_like : weather.weatherMet!.current.feels_like))˚")
                             .font(Font.custom("Avenir Heavy", size: 18))
-                            .bold()
+                            .opacity(0.8)
                     }
                 }
                 
@@ -100,7 +99,7 @@ struct CurrentView: View {
                         
                         HStack{
                             ForEach(weather.topics, id: \.self){topic in
-                                Card(topic: topic, weather: weather)                                
+                                Card(topic: topic, weather: weather)
                             }
                         }
                         .padding(.top)

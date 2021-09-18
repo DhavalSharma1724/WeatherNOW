@@ -80,6 +80,7 @@ class Daily: Decodable, Identifiable, ObservableObject{
     var pop: Double
     var rain: Double?
     var snow: Double?
+    var uvi: Double
 }
 
 class Temperature: Decodable, Identifiable, ObservableObject{
