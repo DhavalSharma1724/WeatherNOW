@@ -23,26 +23,26 @@ struct DayCard: View{
         self.weather = weather
         switch topic{
         case "Humidity":
-            gradient = Gradient(colors: [.gray, .black])
+            gradient = Gradient(colors: [Color(red: 160.0/255, green: 134.0/255, blue: 175.0/255), Color(red: 105.0/255, green: 85.0/255, blue: 115.0/255)])
             value = Double((self.day.humidity))
             unit = "%"
             break
         case "Dew Point":
-            gradient = Gradient(colors: [.white, .blue])
+            gradient = Gradient(colors: [Color(red: 0/255, green: 192.0/255, blue: 255/255), Color(red: 70.0/255, green: 67.0/255, blue: 195.0/255)])
             value = self.day.dew_point
             unit = "˚"
             break
         case "UV Index":
-            gradient = Gradient(colors: [.orange, .red])
+            gradient = Gradient(colors: [Color(red: 209.0/255, green: 150.0/255, blue: 24.0/255), Color(red: 199.0/255, green: 37.0/255, blue: 0/255)])
             value = self.day.uvi
             break
         case "Wind Speed":
-            gradient = Gradient(colors: [.white, .gray])
+            gradient = Gradient(colors: [Color(red: 160.0/255, green: 103.0/255, blue: 157.0/255), Color(red: 206.0/255, green: 7.0/255, blue: 96.0/255)])
             value = self.day.wind_speed
             unit = self.weather.imperial ? " mph" : " m/s"
             break
         case "Clouds":
-            gradient = Gradient(colors: [.gray, .white])
+            gradient = Gradient(colors: [Color(red: 180.0/255, green: 243.0/255, blue: 255.0/255), Color(red: 64.0/255, green: 151.0/255, blue: 167.0/255)])
             value = Double((self.day.clouds))
             unit = "%"
             break
@@ -59,7 +59,7 @@ struct DayCard: View{
             ZStack(alignment: .leading){
                 Rectangle()
                     .fill(LinearGradient(gradient: gradient, startPoint: .topTrailing, endPoint: .bottomLeading))
-                    .cornerRadius(10)
+                    .cornerRadius(8)
                 VStack(alignment: .leading){
                     
                     Text(topic)

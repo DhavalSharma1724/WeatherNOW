@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import SwiftUI
 
 class WeatherModel: NSObject, CLLocationManagerDelegate, ObservableObject{
     var locationManager = CLLocationManager()
@@ -18,7 +19,7 @@ class WeatherModel: NSObject, CLLocationManagerDelegate, ObservableObject{
     var hourlyTime = [String]()
     
     @Published var authorizationState = CLAuthorizationStatus.notDetermined
-    var topics = ["Humidity", "UV Index", "Clouds", "Wind Speed", "Dew Point"]
+    var topics = ["UV Index", "Wind Speed", "Humidity", "Clouds", "Dew Point"]
     
     override init(){
         super.init()
@@ -193,5 +194,131 @@ class WeatherModel: NSObject, CLLocationManagerDelegate, ObservableObject{
             time = "\((intTime - 12)):\(minutes) PM"
         }
         return time
+    }
+    
+    func getGradient() -> Gradient{
+        var grad: Gradient
+        switch weatherImp!.current.weather[0].icon{
+        case "01d":
+            grad = Gradient(colors: [Color(red: 118.0/255.0, green: 239.0/255.0, blue: 1), Color(red: 0, green: 178.0/255.0, blue: 1)])
+            break
+        case "01n":
+            grad = Gradient(colors: [Color(red: 31/255.0, green: 39/255.0, blue: 98/255.0), Color(red: 17/255.0, green: 21/255.0, blue: 51/255.0)])
+            break
+        case "02d":
+            grad = Gradient(colors: [Color(red: 104/255.0, green: 214/255.0, blue: 230/255.0), Color(red: 0, green: 155/255.0, blue: 222/255.0)])
+            break
+        case "02n":
+            grad = Gradient(colors: [Color(red: 31/255.0, green: 39/255.0, blue: 98/255.0), Color(red: 17/255.0, green: 21/255.0, blue: 51/255.0)])
+            break
+        case "03d":
+            grad = Gradient(colors: [Color(red: 92/255.0, green: 193/255.0, blue: 208/255.0), Color(red: 0, green: 134/255.0, blue: 191/255.0)])
+            break
+        case "03n":
+            grad = Gradient(colors: [Color(red: 31/255.0, green: 39/255.0, blue: 98/255.0), Color(red: 17/255.0, green: 21/255.0, blue: 51/255.0)])
+            break
+        case "04d":
+            grad = Gradient(colors: [Color(red: 82/255.0, green: 176/255.0, blue: 190/255.0), Color(red: 0, green: 112/255.0, blue: 160/255.0)])
+            break
+        case "04n":
+            grad = Gradient(colors: [Color(red: 31/255.0, green: 39/255.0, blue: 98/255.0), Color(red: 17/255.0, green: 21/255.0, blue: 51/255.0)])
+            break
+        case "09d":
+            grad = Gradient(colors: [Color(red: 82/255.0, green: 176/255.0, blue: 190/255.0), Color(red: 86/255.0, green: 112/255.0, blue: 123/255.0)])
+            break
+        case "09n":
+            grad = Gradient(colors: [Color(red: 82/255.0, green: 176/255.0, blue: 190/255.0), Color(red: 86/255.0, green: 112/255.0, blue: 123/255.0)])
+            break
+        case "10d":
+            grad = Gradient(colors: [Color(red: 83/255.0, green: 158/255.0, blue: 190/255.0), Color(red: 53/255.0, green: 82/255.0, blue: 95/255.0)])
+            break
+        case "10n":
+            grad = Gradient(colors: [Color(red: 83/255.0, green: 158/255.0, blue: 190/255.0), Color(red: 53/255.0, green: 82/255.0, blue: 95/255.0)])
+            break
+        case "11d":
+            grad = Gradient(colors: [Color(red: 49/255.0, green: 34/255.0, blue: 141/255.0), Color(red: 7/255.0, green: 5/255.0, blue: 79/255.0)])
+            break
+        case "11n":
+            grad = Gradient(colors: [Color(red: 49/255.0, green: 34/255.0, blue: 141/255.0), Color(red: 7/255.0, green: 5/255.0, blue: 79/255.0)])
+            break
+        case "13d":
+            grad = Gradient(colors: [Color(red: 189/255.0, green: 239/255.0, blue: 244/255.0), Color(red: 137/255.0, green: 217/255.0, blue: 218/255.0)])
+            break
+        case "13n":
+            grad = Gradient(colors: [Color(red: 111/255.0, green: 150/255.0, blue: 155/255.0), Color(red: 57/255.0, green: 102/255.0, blue: 103/255.0)])
+            break
+        case "50d":
+            grad = Gradient(colors: [Color(red: 178/255.0, green: 178/255.0, blue: 178/255.0), Color(red: 99/255.0, green: 99/255.0, blue: 99/255.0)])
+            break
+        case "50n":
+            grad = Gradient(colors: [Color(red: 178/255.0, green: 178/255.0, blue: 178/255.0), Color(red: 99/255.0, green: 99/255.0, blue: 99/255.0)])
+            break
+        default:
+            grad = Gradient(colors: [Color(red: 118.0/255.0, green: 239.0/255.0, blue: 1), Color(red: 0, green: 178.0/255.0, blue: 1)])
+        }
+        return grad
+    }
+    
+    static func getGradient(day: Daily) -> Gradient{
+        var grad: Gradient
+        switch day.weather[0].icon{
+        case "01d":
+            grad = Gradient(colors: [Color(red: 118.0/255.0, green: 239.0/255.0, blue: 1), Color(red: 0, green: 178.0/255.0, blue: 1)])
+            break
+        case "01n":
+            grad = Gradient(colors: [Color(red: 31/255.0, green: 39/255.0, blue: 98/255.0), Color(red: 17/255.0, green: 21/255.0, blue: 51/255.0)])
+            break
+        case "02d":
+            grad = Gradient(colors: [Color(red: 104/255.0, green: 214/255.0, blue: 230/255.0), Color(red: 0, green: 155/255.0, blue: 222/255.0)])
+            break
+        case "02n":
+            grad = Gradient(colors: [Color(red: 31/255.0, green: 39/255.0, blue: 98/255.0), Color(red: 17/255.0, green: 21/255.0, blue: 51/255.0)])
+            break
+        case "03d":
+            grad = Gradient(colors: [Color(red: 92/255.0, green: 193/255.0, blue: 208/255.0), Color(red: 0, green: 134/255.0, blue: 191/255.0)])
+            break
+        case "03n":
+            grad = Gradient(colors: [Color(red: 31/255.0, green: 39/255.0, blue: 98/255.0), Color(red: 17/255.0, green: 21/255.0, blue: 51/255.0)])
+            break
+        case "04d":
+            grad = Gradient(colors: [Color(red: 82/255.0, green: 176/255.0, blue: 190/255.0), Color(red: 0, green: 112/255.0, blue: 160/255.0)])
+            break
+        case "04n":
+            grad = Gradient(colors: [Color(red: 31/255.0, green: 39/255.0, blue: 98/255.0), Color(red: 17/255.0, green: 21/255.0, blue: 51/255.0)])
+            break
+        case "09d":
+            grad = Gradient(colors: [Color(red: 82/255.0, green: 176/255.0, blue: 190/255.0), Color(red: 86/255.0, green: 112/255.0, blue: 123/255.0)])
+            break
+        case "09n":
+            grad = Gradient(colors: [Color(red: 82/255.0, green: 176/255.0, blue: 190/255.0), Color(red: 86/255.0, green: 112/255.0, blue: 123/255.0)])
+            break
+        case "10d":
+            grad = Gradient(colors: [Color(red: 83/255.0, green: 158/255.0, blue: 190/255.0), Color(red: 53/255.0, green: 82/255.0, blue: 95/255.0)])
+            break
+        case "10n":
+            grad = Gradient(colors: [Color(red: 83/255.0, green: 158/255.0, blue: 190/255.0), Color(red: 53/255.0, green: 82/255.0, blue: 95/255.0)])
+            break
+        case "11d":
+            grad = Gradient(colors: [Color(red: 49/255.0, green: 34/255.0, blue: 141/255.0), Color(red: 7/255.0, green: 5/255.0, blue: 79/255.0)])
+            break
+        case "11n":
+            grad = Gradient(colors: [Color(red: 49/255.0, green: 34/255.0, blue: 141/255.0), Color(red: 7/255.0, green: 5/255.0, blue: 79/255.0)])
+            break
+        case "13d":
+            grad = Gradient(colors: [Color(red: 189/255.0, green: 239/255.0, blue: 244/255.0), Color(red: 137/255.0, green: 217/255.0, blue: 218/255.0)])
+            break
+        case "13n":
+            grad = Gradient(colors: [Color(red: 111/255.0, green: 150/255.0, blue: 155/255.0), Color(red: 57/255.0, green: 102/255.0, blue: 103/255.0)])
+            break
+        case "50d":
+            grad = Gradient(colors: [Color(red: 178/255.0, green: 178/255.0, blue: 178/255.0), Color(red: 99/255.0, green: 99/255.0, blue: 99/255.0)])
+            break
+        case "50n":
+            grad = Gradient(colors: [Color(red: 178/255.0, green: 178/255.0, blue: 178/255.0), Color(red: 99/255.0, green: 99/255.0, blue: 99/255.0)])
+            break
+        default:
+            grad = Gradient(colors: [Color(red: 118.0/255.0, green: 239.0/255.0, blue: 1), Color(red: 0, green: 178.0/255.0, blue: 1)])
+        }
+        return grad
     }
 }

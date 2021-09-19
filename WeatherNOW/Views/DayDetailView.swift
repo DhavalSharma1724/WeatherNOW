@@ -15,7 +15,7 @@ struct DayDetailView: View {
     
     init(day: Daily){
         self.day = day
-        gradient = LinearGradient(gradient: Gradient(colors: [Color(red: 118.0/255.0, green: 239.0/255.0, blue: 1), Color(red: 0, green: 178.0/255.0, blue: 1)]), startPoint: .topTrailing, endPoint: .bottomLeading)
+        gradient = LinearGradient(gradient: WeatherModel.getGradient(day: day), startPoint: .topTrailing, endPoint: .bottomLeading)
     }
     var body: some View {
         ZStack{

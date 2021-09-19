@@ -20,13 +20,13 @@ struct CurrentView: View {
                 HStack{
                     VStack (alignment: .leading, spacing: -20){
                         //Place
-                        Button {
-                            weather.updateLocation()
-                        } label: {
+//                        Button {
+//                            weather.updateLocation()
+//                        } label: {
                             Text(weather.placemark?.locality ?? "")
                                 .font(Font.custom("Avenir Heavy", size: 48))
                                 .padding(.top, 30)
-                        }
+                        //}
                         
                         //Temperature
                         Text("\(Int(weather.imperial ? weather.weatherImp!.current.temp : weather.weatherMet!.current.temp))˚")
@@ -52,7 +52,7 @@ struct CurrentView: View {
                     Rectangle()
                         .foregroundColor(.black)
                         .opacity(0.05)
-                        .cornerRadius(10)
+                        .cornerRadius(5)
                     
                     //Scroll Content
                     ScrollView(showsIndicators: false){
