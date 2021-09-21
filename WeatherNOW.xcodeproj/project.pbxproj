@@ -20,7 +20,6 @@
 		D18082D826F51F3D00453947 /* DayRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18082D726F51F3D00453947 /* DayRowView.swift */; };
 		D18082DA26F52C5C00453947 /* DayDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18082D926F52C5C00453947 /* DayDetailView.swift */; };
 		D18082DC26F6814200453947 /* DayCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18082DB26F6814200453947 /* DayCard.swift */; };
-		D18A28D326FA85A7000CAF21 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18A28D226FA85A7000CAF21 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +38,6 @@
 		D18082D726F51F3D00453947 /* DayRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRowView.swift; sourceTree = "<group>"; };
 		D18082D926F52C5C00453947 /* DayDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayDetailView.swift; sourceTree = "<group>"; };
 		D18082DB26F6814200453947 /* DayCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCard.swift; sourceTree = "<group>"; };
-		D18A28D226FA85A7000CAF21 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,7 +124,6 @@
 		D18082C826F001A500453947 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				D18A28D226FA85A7000CAF21 /* Constants.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -211,7 +208,6 @@
 				D18082D026F2972F00453947 /* CurrentView.swift in Sources */,
 				D18082CE26F0049B00453947 /* WeatherModel.swift in Sources */,
 				D18082D426F3ACEA00453947 /* CardDetailView.swift in Sources */,
-				D18A28D326FA85A7000CAF21 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
