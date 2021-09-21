@@ -33,6 +33,18 @@ struct DayRowView: View {
                 .frame(width: 131)
                 
                 Spacer()
+                HStack{
+                    Image(day.weather[0].icon)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 72*1.1565762, height: 72)
+                    
+                    Text(day.pop != 0 ? "\(Int(day.pop*100))%" : "")
+                        .font(Font.custom("Avenir Heavy", size: 20))
+                        .foregroundColor(Color(red: 0, green: 230/255.0, blue: 1))
+                }
+                .frame(width: 150, alignment: .leading)
+                
                 
                 Spacer()
                 VStack(alignment: .trailing){

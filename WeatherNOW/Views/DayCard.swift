@@ -57,6 +57,7 @@ struct DayCard: View{
             isShowing = true
         }, label: {
             ZStack(alignment: .leading){
+
                 Rectangle()
                     .fill(LinearGradient(gradient: gradient, startPoint: .topTrailing, endPoint: .bottomLeading))
                     .cornerRadius(8)
@@ -91,7 +92,7 @@ struct DayCard: View{
         .buttonStyle(PlainButtonStyle())
         .sheet(isPresented: $isShowing){
             
-            CardDetailView(topic: topic, gradient: gradient, value: value, unit: unit)
+            CardDetailView(topic: topic, gradient: gradient, value: value, unit: unit, gradientBackground: WeatherModel.getGradient(day: day))
             
         }
         

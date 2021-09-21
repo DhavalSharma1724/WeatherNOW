@@ -23,29 +23,30 @@ struct DayDetailView: View {
                 .ignoresSafeArea()
             
             VStack {
-                HStack {
                     VStack(alignment: .leading, spacing: -20){
                         Text(weather.placemark?.locality ?? "Unknown")
                             .font(Font.custom("Avenir Heavy", size: 48))
                             .padding(.top, 30)
                         
-                        Text(String(Int(day.feels_like.day))+"˚")
-                            .font(Font.custom("Avenir Heavy", size: 108))
+                        HStack{
+                            VStack(alignment: .leading, spacing: -20){
+                                Text(String(Int(day.feels_like.day))+"˚")
+                                    .font(Font.custom("Avenir Heavy", size: 108))
+                                
+                                Text("\(day.weather[0].main) – \(WeatherModel.stringFromDateDay(NSDate(timeIntervalSince1970: TimeInterval(day.dt)) as Date))")
+                                    .font(Font.custom("Avenir Heavy", size: 18))
+                                    .opacity(0.8)
+                                    .frame(width: 198, alignment: .leading)
+                            }
+                            
+                            Image(day.weather[0].icon)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                        }
                         
-                        Text("\(day.weather[0].main) – \(WeatherModel.stringFromDateDay(NSDate(timeIntervalSince1970: TimeInterval(day.dt)) as Date))")
-                            .font(Font.custom("Avenir Heavy", size: 18))
-                            .opacity(0.8)
                     }
                     
-                    Spacer()
-                }
                 
-                //Divider
-                Rectangle()
-                    .cornerRadius(20)
-                    .frame(height: 1)
-                    .foregroundColor(.white)
-                    .opacity(0.5)
                 
                 //Background
                 HStack{
@@ -56,16 +57,16 @@ struct DayDetailView: View {
                         .cornerRadius(10)
                         
                         VStack{
-                            Rectangle()
-                                .foregroundColor(.red)
-                                .aspectRatio(1.0, contentMode: .fit)
+                            Image("sunrise")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
                             Text(WeatherModel.stringFromDateTime(NSDate(timeIntervalSince1970: TimeInterval(day.sunrise)) as Date))
                                 .font(Font.custom("Avenir Heavy", size: 18))
                                 .padding(.bottom, 0)
                             
-                            Rectangle()
-                                .foregroundColor(.red)
-                                .aspectRatio(1.0, contentMode: .fit)
+                            Image("sunset")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
                             
                             Text(WeatherModel.stringFromDateTime(NSDate(timeIntervalSince1970: TimeInterval(day.sunset)) as Date))
                                 .font(Font.custom("Avenir Heavy", size: 18))
@@ -81,16 +82,16 @@ struct DayDetailView: View {
                         .cornerRadius(8)
                         
                         VStack{
-                            Rectangle()
-                                .foregroundColor(.red)
-                                .aspectRatio(1.0, contentMode: .fit)
+                            Image("moonrise")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
                             Text(WeatherModel.stringFromDateTime(NSDate(timeIntervalSince1970: TimeInterval(day.moonrise)) as Date))
                                 .font(Font.custom("Avenir Heavy", size: 18))
                                 .padding(.bottom, 0)
                                                         
-                            Rectangle()
-                                .foregroundColor(.red)
-                                .aspectRatio(1.0, contentMode: .fit)
+                            Image("moonset")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
                             
                             Text(WeatherModel.stringFromDateTime(NSDate(timeIntervalSince1970: TimeInterval(day.moonset)) as Date))
                                 .font(Font.custom("Avenir Heavy", size: 18))
@@ -100,14 +101,8 @@ struct DayDetailView: View {
                     }
                 }
                 .frame(height: 350)
-                .padding(.vertical)
-                
-                //Divider
-                Rectangle()
-                    .cornerRadius(20)
-                    .frame(height: 1)
-                    .foregroundColor(.white)
-                    .opacity(0.5)
+                .padding(.top, 40)
+                .padding(.bottom, 30)
                 
                 ZStack{
                     ScrollView(.horizontal, showsIndicators: false){

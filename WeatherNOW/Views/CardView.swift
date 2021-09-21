@@ -92,7 +92,7 @@ struct Card: View{
         .buttonStyle(PlainButtonStyle())
         .sheet(isPresented: $isShowing){
             
-            CardDetailView(topic: topic, gradient: gradient, value: value, unit: unit)
+            CardDetailView(topic: topic, gradient: gradient, value: value, unit: unit, gradientBackground: weather.getGradient())
             
         }
         

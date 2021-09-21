@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CardDetailView: View {
     
+    @EnvironmentObject var weather: WeatherModel
     var topic: String
     var gradient: Gradient
     var value: Double = 0
@@ -17,8 +18,10 @@ struct CardDetailView: View {
     var rectangleHeight = 1
     var UVdescription = "Low"
     var UVcolor: Color = Color(red: 1.0, green: 1.0, blue: 1.0)
+    var gradientBackground: Gradient
     
-    init(topic: String, gradient: Gradient, value: Double, unit: String){
+    init(topic: String, gradient: Gradient, value: Double, unit: String, gradientBackground: Gradient){
+        self.gradientBackground = gradientBackground
         self.topic = topic
         self.gradient = gradient
         self.value = value
@@ -27,7 +30,7 @@ struct CardDetailView: View {
         switch topic{
         case "Humidity":
             self.description = "Humidity measures the amount of water vapor in the air. In other words, if the humidity is at 100%, the air can't hold any more water vapor. This means sweat can't evaporate, making it feel hotter than it actually is. If the humidity is low, sweat easily evaporates, making you feel colder."
-            rectangleHeight = 241
+            rectangleHeight = 261
             break
         case "Dew Point":
             self.description = "Dew point represents the temperature the air needs to be cooled to reach a humidity of 100%. In other words, if the air gets any colder, water would leave the atmosphere as fog or precipitation."
@@ -35,7 +38,7 @@ struct CardDetailView: View {
             break
         case "UV Index":
             self.description = "The UV index represents how much harmful UV radiation is reaching an area. The higher the index, the more harmful it is for your skin when exposed."
-            rectangleHeight = 235
+            rectangleHeight = 275
             if value < 3{
                 UVdescription = "Minimal"
                 UVcolor = .green
@@ -59,7 +62,7 @@ struct CardDetailView: View {
             break
         case "Wind Speed":
             self.description = "Wind speed measures how fast the air is moving. In this case, the wind speed displayed is averaged over a period of time."
-            rectangleHeight = 155
+            rectangleHeight = 175
             break
         case "Clouds":
             self.description = "Cloudiness measures what percentage of the sky is covered in clouds. A higher percentage means more of the sky will be covered in clouds."
@@ -72,53 +75,43 @@ struct CardDetailView: View {
     }
     
     var body: some View {
-        ZStack {
-            LinearGradient(gradient: gradient, startPoint: .topTrailing, endPoint: .bottomLeading)
+        ZStack{
+            
+            LinearGradient(gradient: gradientBackground, startPoint: .topTrailing, endPoint: .bottomLeading)
                 .ignoresSafeArea()
             
-            VStack(alignment: .center) {
-                Text(topic)
-                    .font(Font.custom("Avenir Heavy", size: 48))
-                    .foregroundColor(.white)
-                    .padding(.top, 50)
+            ZStack {
+                Rectangle()
+                    .fill(LinearGradient(gradient: gradient, startPoint: .topTrailing, endPoint: .bottomLeading))
+                    .cornerRadius(15)
                 
-                HStack(alignment: .bottom, spacing: -4){
-                    Text(topic == "Wind Speed" ? String(Int(value)) : String(Int(value)) + unit)
-                        .font(Font.custom("Avenir Heavy", size: 126))
-                    Text(topic == "Wind Speed" ? unit : "")
-                        .font(Font.custom("Avenir Heavy", size: 60))
-                        .padding(.bottom, 24)
-                        .padding(.leading, 4)
-                }
-                .padding(.bottom, -4)
-                ZStack{
-                    //Background
-                    Rectangle()
-                        .foregroundColor(.black)
-                        .opacity(0.1)
-                        .cornerRadius(10)
+                VStack(alignment: .center) {
+                    Text(topic)
+                        .font(Font.custom("Avenir Heavy", size: 48))
+                        .foregroundColor(.white)
+                        .padding(.top, 50)
                     
-                    VStack (alignment: .leading){
-                        Text("What does this mean?")
-                            .font(Font.custom("Avenir Heavy", size: 24))
-                            .padding(.vertical, -5)
-                            .padding(.top, 25)
-                        
-                        //Divider
+                    HStack(alignment: .bottom, spacing: -4){
+                        Text(topic == "Wind Speed" ? String(Int(value)) : String(Int(value)) + unit)
+                            .font(Font.custom("Avenir Heavy", size: 126))
+                        Text(topic == "Wind Speed" ? unit : "")
+                            .font(Font.custom("Avenir Heavy", size: 60))
+                            .padding(.bottom, 24)
+                            .padding(.leading, 4)
+                    }
+                    .padding(.bottom, -4)
+                    ZStack{
+                        //Background
                         Rectangle()
-                            .opacity(0.8)
-                            .cornerRadius(20)
-                            .frame(width: 100, height: 3)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
+                            .opacity(0.1)
+                            .cornerRadius(10)
                         
-                        Text(description)
-                            .font(Font.custom("Avenir", size: 16))
-                        
-                        if topic == "UV Index"{
-                            Text("Exposure Category: ")
+                        VStack (alignment: .leading){
+                            Text("What does this mean?")
                                 .font(Font.custom("Avenir Heavy", size: 24))
                                 .padding(.vertical, -5)
-                                .padding(.top, 5)
+                                .padding(.top, 25)
                             
                             //Divider
                             Rectangle()
@@ -127,29 +120,44 @@ struct CardDetailView: View {
                                 .frame(width: 100, height: 3)
                                 .foregroundColor(.white)
                             
-                            Text(UVdescription)
-                                .font(Font.custom("Avenir Heavy", size: 24))
-                                .foregroundColor(UVcolor)
-                                .padding(.top, -2)
+                            Text(description)
+                                .font(Font.custom("Avenir", size: 16))
+                            
+                            if topic == "UV Index"{
+                                Text("Exposure Category: ")
+                                    .font(Font.custom("Avenir Heavy", size: 24))
+                                    .padding(.vertical, -5)
+                                    .padding(.top, 5)
+                                
+                                //Divider
+                                Rectangle()
+                                    .opacity(0.8)
+                                    .cornerRadius(20)
+                                    .frame(width: 100, height: 3)
+                                    .foregroundColor(.white)
+                                
+                                Text(UVdescription)
+                                    .font(Font.custom("Avenir Heavy", size: 24))
+                                    .foregroundColor(UVcolor)
+                                    .padding(.top, -2)
+                            }
+                            Spacer()
                         }
-                        Spacer()
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
+                    .padding(.horizontal, 25)
+                    .frame(height: CGFloat(rectangleHeight))
+                    
+                    Spacer()
                 }
-                .padding(.horizontal, 25)
-                .frame(height: CGFloat(rectangleHeight))
                 
-                Spacer()
+                
             }
-            
-            
+            .frame(height: 320 + CGFloat(rectangleHeight))
+            .padding(.horizontal, 25)
+            .foregroundColor(.white)
         }
-        .foregroundColor(.white)
+        
     }
 }
 
-struct CardDetailView_Preview: PreviewProvider {
-    static var previews: some View {
-        CardDetailView(topic: "Wind Speed", gradient: Gradient(colors: [.gray, .white]), value: 5, unit: "mph")
-    }
-}

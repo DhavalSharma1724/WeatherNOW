@@ -80,6 +80,7 @@ struct ContentView: View {
                                         .foregroundColor(.white)
                                         .font(Font.custom("Avenir Heavy", size: 18))
                                         .bold()
+                                        .frame(width: 20, alignment: .center)
                                 }
 
                                 
@@ -88,15 +89,19 @@ struct ContentView: View {
                                 Button(action: {
                                     selectedTab = 0
                                 }, label: {
-                                    Image(systemName: "star.fill")
-                                        .foregroundColor(selectedTab == 0 ? .blue : .white)
+                                    Image(selectedTab == 0 ? "dayOrange" : "day")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(height: 20)
                                 })
                                 Spacer()
                                 Button(action: {
                                     selectedTab = 1
                                 }, label: {
-                                    Image(systemName: "pencil")
-                                        .foregroundColor(selectedTab == 1 ? .blue : .white)
+                                    Image(selectedTab == 1 ? "weekOrange" : "week")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(height: 20)
                                 })
                                 Spacer()
                             }

@@ -21,7 +21,7 @@ struct DailyView: View {
 //                } label: {
                     Text(weather.placemark?.locality ?? "")
                         .font(Font.custom("Avenir Heavy", size: 48))
-                        .padding(.top, 26)
+                        .padding(.top, 30)
                 //}
                 
                 //Divider
@@ -32,7 +32,7 @@ struct DailyView: View {
                     .opacity(0.8)
                 
                 ScrollView(showsIndicators: false){
-                    ForEach(0..<weather.weatherMet!.daily.count, id: \.self){index in
+                    ForEach(1..<weather.weatherMet!.daily.count, id: \.self){index in
                         DayRowView(day: weather.imperial ? weather.weatherImp!.daily[index] : weather.weatherMet!.daily[index], index: index)
                         
                         if index != weather.weatherImp!.daily.count - 1 {
