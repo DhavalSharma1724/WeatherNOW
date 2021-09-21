@@ -76,7 +76,7 @@ class WeatherModel: NSObject, CLLocationManagerDelegate, ObservableObject{
     }
     
     func getWeather(_ location: CLLocation) {
-        if let urlImp = URL(string: Constants.apiUrl + "lat=\(location.coordinate.latitude)&lon=\(location.coordinate.longitude)&exclude=minutely,alerts&units=imperial&appid=7ef1538a1ddb3108adab0227bde60492"){
+        if let urlImp = URL(string: Constants.apiUrl + "lat=\(location.coordinate.latitude)&lon=\(location.coordinate.longitude)&exclude=minutely,alerts&units=imperial&appid=\(Constants.apiKey)"){
             
             URLSession.shared.dataTask(with: urlImp) { data, response, error in
 

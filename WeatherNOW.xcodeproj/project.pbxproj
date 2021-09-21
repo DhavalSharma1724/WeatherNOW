@@ -11,7 +11,6 @@
 		D18082B926EBEC7E00453947 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18082B826EBEC7E00453947 /* ContentView.swift */; };
 		D18082BB26EBEC8000453947 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D18082BA26EBEC8000453947 /* Assets.xcassets */; };
 		D18082BE26EBEC8000453947 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D18082BD26EBEC8000453947 /* Preview Assets.xcassets */; };
-		D18082CA26F001B500453947 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18082C926F001B500453947 /* Constants.swift */; };
 		D18082CC26F0047300453947 /* WeatherNOW.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18082CB26F0047300453947 /* WeatherNOW.swift */; };
 		D18082CE26F0049B00453947 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18082CD26F0049B00453947 /* WeatherModel.swift */; };
 		D18082D026F2972F00453947 /* CurrentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18082CF26F2972F00453947 /* CurrentView.swift */; };
@@ -30,7 +29,6 @@
 		D18082BA26EBEC8000453947 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D18082BD26EBEC8000453947 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D18082BF26EBEC8000453947 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D18082C926F001B500453947 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D18082CB26F0047300453947 /* WeatherNOW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherNOW.swift; sourceTree = "<group>"; };
 		D18082CD26F0049B00453947 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		D18082CF26F2972F00453947 /* CurrentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentView.swift; sourceTree = "<group>"; };
@@ -126,7 +124,6 @@
 		D18082C826F001A500453947 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				D18082C926F001B500453947 /* Constants.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -208,7 +205,6 @@
 				D18082CC26F0047300453947 /* WeatherNOW.swift in Sources */,
 				D18082B926EBEC7E00453947 /* ContentView.swift in Sources */,
 				D18082B726EBEC7E00453947 /* WeatherNOWApp.swift in Sources */,
-				D18082CA26F001B500453947 /* Constants.swift in Sources */,
 				D18082D026F2972F00453947 /* CurrentView.swift in Sources */,
 				D18082CE26F0049B00453947 /* WeatherModel.swift in Sources */,
 				D18082D426F3ACEA00453947 /* CardDetailView.swift in Sources */,
