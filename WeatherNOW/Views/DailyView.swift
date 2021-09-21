@@ -15,15 +15,9 @@ struct DailyView: View {
         if weather.weatherImp != nil && weather.weatherMet != nil{
             
             VStack (alignment: .leading, spacing: 0){
-                //Place
-//                Button {
-//                    print("HEO")
-//                    weather.requestGeolocation()
-//                } label: {
-                    Text(weather.placemark?.locality ?? "")
-                        .font(Font.custom("Avenir Heavy", size: 48))
-                        .padding(.top, 30)
-                //}
+                Text(weather.placemark?.locality ?? "")
+                    .font(Font.custom("Avenir Heavy", size: 48))
+                    .padding(.top, 30)
                 
                 //Divider
                 Rectangle()
