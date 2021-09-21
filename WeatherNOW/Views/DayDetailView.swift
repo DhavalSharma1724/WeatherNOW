@@ -104,7 +104,6 @@ struct DayDetailView: View {
                 .padding(.top, 40)
                 .padding(.bottom, 30)
                 
-                ZStack{
                     ScrollView(.horizontal, showsIndicators: false){
                         
                         HStack{
@@ -115,7 +114,6 @@ struct DayDetailView: View {
                         .padding(.top)
                         .padding(.bottom, 6)
                     }
-                }
             }
             .padding(.horizontal, 25)
         }

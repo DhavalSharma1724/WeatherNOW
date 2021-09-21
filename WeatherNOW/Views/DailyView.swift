@@ -13,6 +13,7 @@ struct DailyView: View {
     
     var body: some View {
         if weather.weatherImp != nil && weather.weatherMet != nil{
+            
             VStack (alignment: .leading, spacing: 0){
                 //Place
 //                Button {

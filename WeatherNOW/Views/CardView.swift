@@ -87,8 +87,8 @@ struct Card: View{
                 .padding(15)
 
             }
-            .aspectRatio(1, contentMode: .fit)
         })
+        .aspectRatio(CGSize(width: 1, height: 1), contentMode: .fit)
         .buttonStyle(PlainButtonStyle())
         .sheet(isPresented: $isShowing){
             

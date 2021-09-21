@@ -19,14 +19,11 @@ struct CurrentView: View {
                 
                 //MARK: Top Section
                     VStack (alignment: .leading, spacing: -20){
-                        //Place
-//                        Button {
-//                            weather.updateLocation()
-//                        } label: {
+
                             Text(weather.placemark?.locality ?? "")
                                 .font(Font.custom("Avenir Heavy", size: 48))
                                 .padding(.top, 30)
-                        //}
+
                         HStack{
                             VStack(alignment: .leading, spacing: -20){
                                 //Temperature
